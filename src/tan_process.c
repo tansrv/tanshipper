@@ -21,7 +21,9 @@ tan_create_pidfile()
     fd = open(TAN_PIDFILE, O_CREAT | O_WRONLY, 0644);
     if (fd == -1) {
 
-        printf("open(\"%s\") failed\n", TAN_PIDFILE);
+        tan_stderr_error(errno, "open(\"%s\") failed",
+                         TAN_PIDFILE);
+
         return TAN_ERROR;
     }
 
@@ -29,7 +31,9 @@ tan_create_pidfile()
     snprintf(buf, 20, "%d", getpid());
 
     if (write(fd, buf, strlen(buf)) == -1) {
-        printf("write(\"%s\") failed\n", TAN_PIDFILE);
+
+        tan_stderr_error(errno, "write(\"%s\") failed",
+                         TAN_PIDFILE);
 
         tan_close_file(fd);
         return TAN_ERROR;

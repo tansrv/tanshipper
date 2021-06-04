@@ -26,7 +26,9 @@ tan_load_cfg()
     fp = fopen(TAN_CFG_PATH, "r");
     if (fp == NULL) {
 
-        printf("fopen(\"%s\") failed\n", TAN_CFG_PATH);
+        tan_stderr_error(errno, "fopen(\"%s\") failed",
+                         TAN_CFG_PATH);
+
         return TAN_ERROR;
     }
 
@@ -51,8 +53,8 @@ tan_load_cfg()
 
     if (!hosts.size) {
 
-        printf("tanshipper: configuration file: %s: host not found\n",
-               TAN_CFG_PATH);
+        tan_stderr_error(0, "configuration file: %s: host not found",
+                         TAN_CFG_PATH);
 
         return TAN_ERROR;
     }
@@ -108,7 +110,7 @@ tan_load_host(char *str)
 
     sh = (tan_single_host_t *)calloc(1, sizeof(tan_single_host_t));
     if (sh == NULL)
-        printf("calloc() failed\n");
+        tan_stderr_error(errno, "calloc() failed");
 
     p = strchr(str, ':');
     sh->port = atoi(++p);

@@ -71,7 +71,14 @@ main(int argc, char **argv)
     if (tan_ssl_init() != TAN_OK)
         return -1;
 
-    daemon(1, 1);
+    if (daemon(1, 1)) {
+
+        tan_stderr_error(errno, "daemon() failed");
+        return -1;
+    }
+
+    if (tan_log_init() != TAN_OK)
+        return -1;
 
     if (tan_create_pidfile() != TAN_OK)
         return -1;
@@ -92,7 +99,7 @@ tan_thread_init()
 
         if (pthread_create(&tid, NULL, tan_start_shipping, &k)) {
 
-            printf("pthread_create() failed\n");
+            tan_stderr_error(errno, "pthread_create() failed");
             exit(-1);
         }
 
@@ -125,8 +132,8 @@ tan_start_shipping(void *arg)
         fd = tan_connect(host->host, host->port);
         if (fd == -1) {
 
-            printf("tanshipper: %s is not listening on port %d\n",
-                   host->host, host->port);
+            tan_stderr_error(0, "%s is not listening on port %d",
+                             host->host, host->port);
 
             exit(-1);
         }
@@ -187,8 +194,8 @@ tan_is_in_allowlist(tan_socket_t fd, const char *host)
 
     if (buf[0] == '1') {
 
-        printf("tanshipper: your ip address is not in allowlist, "
-               "server: %s\n", host);
+        tan_stderr_error(0, "your ip address is not in allowlist, "
+                         "server: %s", host);
 
         return TAN_ERROR;
     }
@@ -281,6 +288,11 @@ tan_create_empty_file(const char *path)
     FILE  *fp;
 
     fp = fopen(path, "w");
+    if (fp == NULL) {
+
+        tan_log(errno, "fopen(\"%s\") failed", path);
+        return;
+    }
 
     fclose(fp);
 }
@@ -294,7 +306,7 @@ tan_insert_file(tan_vector_files_t *files,
 
     fi = (tan_fileinfo_t *)calloc(1, sizeof(tan_fileinfo_t));
     if (fi == NULL)
-        printf("calloc() failed\n");
+        tan_log(errno, "calloc() failed");
 
     strcpy(fi->filename, name);
     fi->offset = htonl(size);
@@ -354,7 +366,7 @@ tan_send_fileinfo(SSL *ssl, tan_vector_files_t *files,
 
         if (fp == NULL) {
 
-            printf("fopen(\"%s\") failed\n", path);
+            tan_log(errno, "fopen(\"%s\") failed", path);
             exit(-1);
         }
 

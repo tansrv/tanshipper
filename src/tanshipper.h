@@ -10,7 +10,7 @@
 #define TANSHIPPER_H
 
 
-#define TANSHIPPER_VERSION  "1.0.0"
+#define TANSHIPPER_VERSION  "1.0.1"
 
 
 #include "tan_core.h"

@@ -38,13 +38,13 @@ tan_ssl_connect(tan_socket_t fd)
     ssl = SSL_new(ssl_ctx);
     if (ssl == NULL) {
 
-        printf("SSL_new() failed\n");
+        tan_log(0, "SSL_new() failed");
         return NULL;
     }
 
     if (!SSL_set_fd(ssl, fd)) {
 
-        printf("SSL_set_fd() failed\n");
+        tan_log(0, "SSL_set_fd() failed");
         goto failed;
     }
 
