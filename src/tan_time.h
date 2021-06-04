@@ -13,6 +13,9 @@
 #include "tan_core.h"
 
 
+void tan_localtime(struct tm *tm);
+
+
 #define tan_msleep(ms)  usleep(ms * 1000)
 
 

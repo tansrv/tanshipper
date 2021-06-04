@@ -6,6 +6,7 @@
  */
 
 
+#define _GNU_SOURCE
 #include "tan_core.h"
 #include "tanshipper.h"
 

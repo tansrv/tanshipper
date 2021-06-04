@@ -10,10 +10,6 @@
 #define TAN_LINUX_CONF_H
 
 
-#ifndef _GNU_SOURCE
-#define _GNU_SOURCE
-#endif
-
 #define _POSIX_C_SOURCE  200112L
 
 
