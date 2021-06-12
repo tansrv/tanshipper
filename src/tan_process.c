@@ -42,3 +42,10 @@ tan_create_pidfile()
     tan_close_file(fd);
     return TAN_OK;
 }
+
+
+void
+tan_remove_pidfile()
+{
+    remove(TAN_PIDFILE);
+}

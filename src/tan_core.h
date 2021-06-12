@@ -19,6 +19,7 @@
 #include "tan_vector.h"
 #include "tan_config.h"
 #include "tan_log.h"
+#include "tan_signal.h"
 #include "tan_socket.h"
 #include "tan_process.h"
 #include "tan_openssl_ssl.h"

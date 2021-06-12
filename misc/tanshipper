@@ -24,7 +24,7 @@ start() {
 }
 
 stop() {
-	kill -SIGTERM $PID 2>/dev/null && rm -rf $PIDFILE
+	kill -SIGTERM $PID 2>/dev/null
 	return $?
 }
 

@@ -6,15 +6,14 @@
  */
 
 
-#ifndef TAN_PROCESS_H
-#define TAN_PROCESS_H
+#ifndef TAN_SIGNAL_H
+#define TAN_SIGNAL_H
 
 
 #include "tan_core.h"
 
 
-tan_int_t tan_create_pidfile();
-void tan_remove_pidfile();
+tan_int_t tan_signal_init();
 
 
-#endif /* TAN_PROCESS_H */
+#endif /* TAN_SIGNAL_H */

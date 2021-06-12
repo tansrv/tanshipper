@@ -83,6 +83,9 @@ main(int argc, char **argv)
     if (tan_create_pidfile() != TAN_OK)
         return -1;
 
+    if (tan_signal_init() != TAN_OK)
+        return -1;
+
     tan_thread_init();
 }
 

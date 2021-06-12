@@ -18,6 +18,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <fcntl.h>
+#include <signal.h>
 #include <unistd.h>
 #include <string.h>
 #include <pthread.h>
