@@ -36,12 +36,12 @@
     (name).size
 
 #define tan_vector_push_back(name, type, data)                                  \
-    do {				                                                        \
-        if ((name).size == (name).m) {						     	            \
-	        (name).m = (name).m ? (name).m<<1 : 2;						        \
-	        (name).vec = (type *)realloc((name).vec, sizeof(type) * (name).m);  \
-        }															            \
-        (name).vec[(name).size++] = data;				                        \
+    do {                                                                        \
+        if ((name).size == (name).m) {                                          \
+            (name).m = (name).m ? (name).m<<1 : 2;                              \
+            (name).vec = (type *)realloc((name).vec, sizeof(type) * (name).m);  \
+        }                                                                       \
+        (name).vec[(name).size++] = data;                                       \
     } while (0)
 
 #define tan_vector_clear(name)                                                  \
